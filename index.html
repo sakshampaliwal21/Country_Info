@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Explorer - Country Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Country_Info</h1>
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search for a country...">
+            <select id="regionFilter">
+
+
+                <option value="all">Filter by Region</option>
+                
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </div>
+    </header>
+    <main>
+          <div id="loader" class="hidden">Loading Countries...</div>
+        
+          <div id="countriesContainer" class="country-grid"></div>
+    </main>
+
+      <script src="script.js"></script>
+</body>
+</html>

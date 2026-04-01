@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f7f6; 
+    color: #2c3e50;margin: 0;padding: 20px;
+}
+header {text-align: center; margin-bottom: 40px;}
+.controls {
+    display: flex;
+ justify-content: center;
+    gap: 15px;flex-wrap: wrap;
+margin-top: 20px;
+}
+input, select {
+    padding: 10px 15px;
+border-radius: 8px;border: 1px solid #cccccc;font-size: 16px;min-width: 250px;
+}
+.country-grid {
+    display: grid;    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1200px;  margin: 0 auto;
+
+}
+.country-card {
+    background-color: #ffffff; 
+    border-radius: 12px;
+overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.2s; 
+}
+.country-card:hover {
+    transform: translateY(-5px);
+}
+.country-card img {width: 100%;height: 160px;object-fit: cover;border-bottom: 1px solid #eeeeee;}
+.card-body {
+    padding: 20px;
+}
+
+.card-body h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+}
+.card-body p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+.hidden {display: none;}
+
+#loader {text-align: center;
+    font-size: 24px;
+    margin-top: 50px;
+}
+@media (max-width: 600px) {
+    input, select {
+        width: 100%; 
+    }
+}
