@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Explorer - Country Project</title>
+    <title>Country_Info</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,25 +11,22 @@
     <header>
         <h1>Country_Info</h1>
         <div class="controls">
-            <input type="text" id="searchInput" placeholder="Search for a country...">
-            <select id="regionFilter">
+  <input type="text" id="search" placeholder="Search country..." />
 
+  <select id="regionFilter">
+    <option value="">All Regions</option>
+    <option value="Asia">Asia</option>
+    <option value="Europe">Europe</option>
+    <option value="Africa">Africa</option>
+    <option value="Americas">Americas</option>
+  </select>
 
-                <option value="all">Filter by Region</option>
-                
-                <option value="Africa">Africa</option>
-                <option value="Americas">Americas</option>
-                <option value="Asia">Asia</option>
-                <option value="Europe">Europe</option>
-                <option value="Oceania">Oceania</option>
-            </select>
-        </div>
-    </header>
-    <main>
-          <div id="loader" class="hidden">Loading Countries...</div>
-        
-          <div id="countriesContainer" class="country-grid"></div>
-    </main>
+  <button onclick="sortByPopulation()">Sort by Population</button>
+  <button onclick="toggleDarkMode()">Dark Mode</button>
+</div>
+
+<div id="loader">Loading...</div>
+<div id="countriesContainer"></div>
 
       <script src="script.js"></script>
 </body>

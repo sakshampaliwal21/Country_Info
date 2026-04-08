@@ -1,45 +1,79 @@
-const container = document.getElementById('countriesContainer');
-const loader = document.getElementById('loader');
-async function mera_hai() {
-      showLoading(true);
-    try {
-          const  response = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,flags,region');
-        const  countries = await response.json();
-    countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
-        renderCards(countries);
-    } catch (err) {
-              container.innerHTML = `<p class="error">Failed to load countries. Please refresh.</p>`;
-            console.error(err);
-        } finally {
-          showLoading(false);
-    }
+const container = document.getElementById("countriesContainer");
+const loading = document.getElementById("loader");
+const searchInput = document.getElementById("search");
+const regionFilter = document.getElementById("regionFilter");
+
+let allCountries = [];
+
+async function getCountries() {
+  loading.style.display = "block";
+
+  try {
+    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,capital,currencies,population,flags,region");
+    const data = await res.json();
+
+    allCountries = data;
+    showCountries(allCountries);
+
+  } catch (error) {
+    container.innerHTML = "Error loading data";
+  }
+
+  loading.style.display = "none";
 }
-  function renderCards(countries) {
-     container.innerHTML = countries.map(country => {
-        const capital = country.capital?.[0] || 'N/A';
-            const population = country.population.toLocaleString();
-         const currencyObj = country.currencies ? Object.values(country.currencies)[0] : null;
-         const currency = currencyObj ? currencyObj.name : 'N/A';
-        return `
-            <div class="country-card">
-                <img src="${country.flags.svg}"   alt="${country.name.common}  flag">
-                <div class="card-body">
 
-                    <h3>${country.name.common}</h3>
-                    <p><strong>Region:</strong> ${country.region}</p>
+function showCountries(countries) {
+  container.innerHTML = "";
 
-                    <p><strong>Capital:</strong>  ${capital}   </p>
+  countries.map(country => {
+    let currency = "N/A";
 
-                    <p><strong>Population:</strong> ${population}   </p>
-                    <p><strong>Currency:</strong> ${currency}</p>
-                </div>
-            </div>
-        `;
-        }).join('');
+    if (country.currencies) {
+      const key = Object.keys(country.currencies)[0];
+      currency = country.currencies[key].name;
+    }
 
-      }
-function showLoading(isLoading) {
-    loader.style.display = isLoading ? 'flex' : 'none';
-    container.style.display = isLoading ? 'none' : 'grid';
-      }
-mera_hai();
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <img src="${country.flags.png}" />
+      <h3>${country.name.common}</h3>
+      <p>Region: ${country.region}</p>
+      <p>Capital: ${country.capital ? country.capital[0] : "N/A"}</p>
+      <p>Population: ${country.population}</p>
+      <p>Currency: ${currency}</p>
+      <button onclick="addFavorite('${country.name.common}')">❤️ Favorite</button>
+    `;
+    container.appendChild(div);
+  });
+}
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+
+  const filtered = allCountries.filter(c =>
+    c.name.common.toLowerCase().includes(value)
+  );
+  showCountries(filtered);
+});
+
+
+regionFilter.addEventListener("change", () => {
+  const region = regionFilter.value;
+  const filtered = region
+    ? allCountries.filter(c => c.region === region): allCountries;
+  showCountries(filtered);
+});
+
+
+function sortByPopulation() {
+  const sorted = [...allCountries].sort((a, b) => b.population - a.population);
+  showCountries(sorted);}
+
+function addFavorite(name) {alert(name + " added to favorites");}
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
+
+getCountries();

@@ -54,3 +54,17 @@ overflow: hidden;
         width: 100%; 
     }
 }
+.controls {
+  text-align: center;        margin: 20px;
+}
+
+input, select, button {
+        margin: 5px;
+  padding: 8px;}
+
+.dark {
+  background: #121212;
+  color: white;
+}
+
+.dark .card {background: #1e1e1e;}
